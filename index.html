@@ -3,1120 +3,649 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BBQ des Frères 🔥</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>BBQ des frères 🔥</title>
   <style>
-    :root {
-      --fire: #ff4500;
-      --ember: #ff8c00;
-      --gold: #ffd700;
-      --charcoal: #141414;
-      --smoke: #202020;
-      --ash: #363636;
-      --light: #f5f0e8;
-      --muted: rgba(245, 240, 232, 0.62);
-      --danger: #ef4444;
-      --success: #22c55e;
-      --panel: rgba(255,255,255,0.03);
+    :root{
+      --bg:#111111;
+      --panel:#1b1b1b;
+      --panel-2:#232323;
+      --text:#f5f0e8;
+      --muted:#b8b1a7;
+      --fire:#ff5a1f;
+      --ember:#ff9a1f;
+      --danger:#ff4d4f;
+      --ok:#36c96d;
+      --line:#333333;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--charcoal);
-      color: var(--light);
-      min-height: 100vh;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:linear-gradient(180deg,#130b08 0%, #111111 30%, #111111 100%);
+      color:var(--text);
+      min-height:100vh;
     }
-    a { color: inherit; }
-    button, input {
-      font-family: inherit;
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    .hero{
+      min-height:42vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:40px 20px;
     }
-    .hidden { display: none !important; }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 100%, rgba(255, 110, 0, 0.33), transparent 28%),
-        radial-gradient(circle at 50% 110%, rgba(255, 0, 0, 0.18), transparent 36%),
-        linear-gradient(180deg, #241208 0%, #120905 42%, #141414 100%);
-      padding: 2rem 1rem;
-      text-align: center;
+    h1{
+      font-size:clamp(42px,8vw,92px);
+      line-height:.95;
+      color:var(--ember);
+      margin-bottom:12px;
     }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 130%, rgba(255, 174, 0, 0.18), transparent 34%);
-      pointer-events: none;
+    .sub{color:var(--muted);font-size:15px}
+    .grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      margin-top:10px;
     }
-    .hero-content { position: relative; z-index: 2; max-width: 900px; }
-    .hero-emoji {
-      font-size: clamp(3rem, 8vw, 5rem);
-      display: inline-block;
-      margin-bottom: 1rem;
-      filter: drop-shadow(0 0 18px rgba(255, 140, 0, 0.8));
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
     }
-    .big-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4.2rem, 14vw, 8.5rem);
-      line-height: 0.9;
-      letter-spacing: 0.04em;
-      background: linear-gradient(135deg, var(--gold), var(--ember) 45%, var(--fire));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 18px rgba(255, 140, 0, 0.25));
+    .card h2{
+      font-size:28px;
+      margin-bottom:6px;
+      color:var(--ember);
     }
-    .hero-sub {
-      margin-top: 1rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.95rem;
+    .small{color:var(--muted);font-size:14px;margin-bottom:18px}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .row{
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+      background:var(--panel-2);
+      border:1px solid #2d2d2d;
+      border-radius:12px;
+      padding:12px 14px;
     }
-    .hero-actions {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
+    .item-name{font-weight:700}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .badge{
+      background:rgba(255,90,31,.12);
+      color:#ffb183;
+      border:1px solid rgba(255,90,31,.28);
+      padding:5px 9px;
+      border-radius:999px;
+      font-size:12px;
     }
-    .hero-btn {
-      background: linear-gradient(135deg, var(--fire), var(--ember));
-      color: white;
-      border: 0;
-      border-radius: 999px;
-      padding: 0.95rem 1.4rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 12px 28px rgba(255, 69, 0, 0.25);
+    .none{color:#8e8a82;font-style:italic;font-size:13px}
+    label{
+      display:block;
+      margin:14px 0 6px;
+      font-size:14px;
+      color:var(--muted);
     }
-    .hero-btn.secondary {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: var(--light);
-      box-shadow: none;
+    select,input,button{
+      width:100%;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#151515;
+      color:var(--text);
+      padding:12px 14px;
+      font-size:15px;
     }
-
-    .section {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 4rem 0;
+    input:focus,select:focus{
+      outline:none;
+      border-color:var(--fire);
     }
-    .section-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
+    button{
+      cursor:pointer;
+      font-weight:700;
+      background:linear-gradient(135deg,var(--fire),var(--ember));
+      border:none;
+      color:white;
+      margin-top:16px;
     }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.3rem, 7vw, 4rem);
-      letter-spacing: 0.05em;
-      background: linear-gradient(135deg, var(--gold), var(--fire));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+    button.secondary{
+      background:#1b1b1b;
+      border:1px solid var(--line);
+      color:var(--text);
     }
-    .section-sub {
-      color: rgba(245, 240, 232, 0.48);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.82rem;
-      margin-top: 0.45rem;
+    .checks{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto;padding-right:4px}
+    .check{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      background:var(--panel-2);
+      border:1px solid #2d2d2d;
+      border-radius:12px;
+      padding:11px 12px;
     }
-
-    .notice {
-      width: min(920px, calc(100% - 2rem));
-      margin: -1rem auto 0;
-      padding: 0.9rem 1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: rgba(245,240,232,0.78);
-      font-size: 0.92rem;
-      text-align: center;
+    .check input{width:auto;margin-top:2px}
+    .check-title{font-weight:700}
+    .check-meta{font-size:12px;color:var(--muted);margin-top:3px}
+    .admin-toggle{
+      margin-top:18px;
+      text-align:center;
     }
-
-    .items-container {
-      display: grid;
-      gap: 0.85rem;
-      max-width: 900px;
-      margin: 0 auto;
+    .linkbtn{
+      display:inline-block;
+      color:var(--ember);
+      cursor:pointer;
+      font-size:14px;
+      text-decoration:underline;
     }
-    .item-card {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 1rem 1.1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.9rem;
-      backdrop-filter: blur(8px);
+    .admin-panel{display:none;margin-top:22px}
+    .admin-panel.show{display:block}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .admin-list{display:flex;flex-direction:column;gap:8px}
+    .admin-item{
+      display:flex;gap:8px;align-items:center;
     }
-    .item-name {
-      font-weight: 600;
-      font-size: 1rem;
-      flex: 1;
+    .admin-item input{margin:0}
+    .admin-item .tiny{
+      width:auto;
+      padding:10px 12px;
+      margin:0;
+      white-space:nowrap;
     }
-    .item-assignees {
-      display: flex;
-      gap: 0.35rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .muted{color:var(--muted)}
+    .status{
+      margin-top:10px;
+      font-size:14px;
+      color:var(--muted);
+      min-height:20px;
     }
-    .badge {
-      background: rgba(255, 140, 0, 0.14);
-      color: #ffb84d;
-      border: 1px solid rgba(255, 140, 0, 0.3);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      padding: 0.25rem 0.65rem;
-      white-space: nowrap;
+    .ok{color:var(--ok)}
+    .err{color:var(--danger)}
+    .history{
+      margin-top:18px;
+      max-height:260px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:12px;
     }
-    .muted { color: rgba(245,240,232,0.34); font-style: italic; }
-
-    .divider {
-      width: min(900px, calc(100% - 2rem));
-      margin: 2.8rem auto;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
+    table{width:100%;border-collapse:collapse}
+    th,td{
+      text-align:left;
+      padding:10px 12px;
+      border-bottom:1px solid #2a2a2a;
+      font-size:13px;
     }
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14));
+    th{color:var(--muted);background:#171717;position:sticky;top:0}
+    .footer-note{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
     }
-    .divider-line.right { background: linear-gradient(90deg, rgba(255,255,255,0.14), transparent); }
-    .divider-text {
-      color: rgba(245,240,232,0.3);
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .edit-wrap {
-      max-width: 820px;
-      margin: 0 auto;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 24px;
-      padding: 1.4rem;
-      backdrop-filter: blur(8px);
-    }
-    .steps {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 2rem;
-    }
-    .step { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
-    .step-num {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.14);
-      display: grid;
-      place-items: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      color: rgba(245,240,232,0.36);
-    }
-    .step-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: rgba(245,240,232,0.32);
-    }
-    .step.active .step-num,
-    .step.done .step-num { border-color: rgba(255,140,0,0.55); color: #ffc66b; }
-    .step.active .step-label,
-    .step.done .step-label { color: rgba(255,198,107,0.88); }
-    .step.done .step-num { background: rgba(34,197,94,0.14); border-color: rgba(34,197,94,0.6); color: #8ef0a8; }
-    .step.done .step-label { color: #8ef0a8; }
-    .step-line {
-      width: min(90px, 10vw);
-      height: 2px;
-      background: rgba(255,255,255,0.08);
-      margin: 0 0.7rem 1.35rem;
-    }
-    .step-line.done { background: rgba(34,197,94,0.6); }
-
-    .card { display: none; }
-    .card.active { display: block; }
-    .card-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      color: #ffb84d;
-      letter-spacing: 0.04em;
-    }
-    .card-sub { color: rgba(245,240,232,0.48); margin-top: 0.2rem; margin-bottom: 1.35rem; }
-
-    .person-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 0.7rem;
-      margin-bottom: 1rem;
-    }
-    .person-btn {
-      padding: 0.9rem 0.75rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: var(--light);
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .person-btn.selected {
-      border-color: rgba(255,140,0,0.55);
-      background: rgba(255,140,0,0.12);
-      color: #ffcb7d;
-    }
-
-    .check-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      margin-bottom: 1rem;
-      max-height: 55vh;
-      overflow: auto;
-      padding-right: 0.2rem;
-    }
-    .check-item {
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      border-radius: 16px;
-      padding: 0.95rem 1rem;
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-      cursor: pointer;
-    }
-    .check-item.checked {
-      border-color: rgba(255,140,0,0.45);
-      background: rgba(255,140,0,0.08);
-    }
-    .box {
-      width: 22px;
-      height: 22px;
-      border-radius: 7px;
-      border: 2px solid rgba(255,255,255,0.18);
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      background: rgba(0,0,0,0.16);
-    }
-    .check-item.checked .box {
-      border-color: var(--fire);
-      background: var(--fire);
-      color: white;
-    }
-    .check-main { flex: 1; }
-    .check-main strong { display: block; font-size: 0.98rem; }
-    .check-help { color: rgba(245,240,232,0.5); font-size: 0.78rem; margin-top: 0.22rem; }
-
-    .btn-row { display: flex; gap: 0.7rem; flex-wrap: wrap; }
-    .btn {
-      padding: 0.92rem 1.2rem;
-      border-radius: 14px;
-      border: 0;
-      cursor: pointer;
-      font-weight: 700;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--fire), var(--ember));
-      color: white;
-      flex: 1;
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--light);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-    .success-screen {
-      text-align: center;
-      padding: 1rem 0.5rem;
-    }
-    .success-screen .icon { font-size: 4rem; display: block; margin-bottom: 0.7rem; }
-    .success-screen p { color: rgba(245,240,232,0.56); }
-
-    .status-bar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 0.8rem 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      font-size: 0.86rem;
-      color: rgba(245,240,232,0.72);
-    }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 0.45rem; }
-    .dot.ok { background: var(--success); }
-    .dot.warn { background: #f59e0b; }
-    .dot.bad { background: var(--danger); }
-
-    .admin-page {
-      width: min(1200px, calc(100% - 2rem));
-      margin: 2rem auto 4rem;
-      display: none;
-    }
-    .admin-page.visible { display: block; }
-    .admin-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 1rem;
-    }
-    .admin-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      color: var(--fire);
-      letter-spacing: 0.06em;
-    }
-    .admin-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    .panel {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 1rem;
-    }
-    .panel.full { grid-column: 1 / -1; }
-    .panel h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      color: #ffb84d;
-      margin-bottom: 0.8rem;
-      letter-spacing: 0.04em;
-    }
-    .stack { display: flex; flex-direction: column; gap: 0.55rem; }
-    .row {
-      display: flex;
-      gap: 0.55rem;
-      align-items: center;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 0.55rem;
-    }
-    .row input {
-      flex: 1;
-      background: transparent;
-      border: 0;
-      color: var(--light);
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .icon-btn {
-      min-width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      border: 0;
-      cursor: pointer;
-      font-weight: 700;
-    }
-    .icon-btn.danger { background: rgba(239,68,68,0.12); color: #ff8989; }
-    .icon-btn.ok { background: rgba(34,197,94,0.14); color: #8ef0a8; }
-    .icon-btn.edit { background: rgba(255,140,0,0.13); color: #ffcb7d; }
-
-    .add-row {
-      display: flex;
-      gap: 0.55rem;
-      margin-top: 0.7rem;
-    }
-    .add-row input,
-    .pin-input {
-      flex: 1;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      color: var(--light);
-      padding: 0.85rem 0.95rem;
-      outline: none;
-    }
-    .small { font-size: 0.82rem; color: rgba(245,240,232,0.48); }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-    th, td {
-      padding: 0.75rem 0.6rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      text-align: left;
-      vertical-align: top;
-    }
-    th {
-      color: rgba(245,240,232,0.42);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.72rem;
-    }
-    td.code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-
-    .pill-alert {
-      border: 1px solid rgba(239,68,68,0.25);
-      background: rgba(239,68,68,0.08);
-      color: #ffb3b3;
-      border-radius: 14px;
-      padding: 0.8rem 0.95rem;
-    }
-
-    .admin-login {
-      max-width: 440px;
-      margin: 12vh auto 0;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 22px;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .admin-login h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      color: var(--fire);
-      margin-bottom: 0.25rem;
-    }
-    .toast {
-      position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(140%);
-      background: rgba(15,15,15,0.95);
-      border: 1px solid rgba(255,140,0,0.35);
-      color: #ffcb7d;
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-      z-index: 9999;
-      transition: transform .25s ease;
-      max-width: calc(100% - 2rem);
-      text-align: center;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-    .loader {
-      width: 22px;
-      height: 22px;
-      border: 3px solid rgba(255,255,255,0.18);
-      border-top-color: var(--ember);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 0.6rem;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @media (max-width: 780px) {
-      .item-card { flex-direction: column; align-items: flex-start; }
-      .item-assignees { justify-content: flex-start; }
-      .admin-grid { grid-template-columns: 1fr; }
-      .row { flex-wrap: wrap; }
-      table { font-size: 0.8rem; }
-      th:nth-child(4), td:nth-child(4) { display: none; }
+    @media (max-width: 860px){
+      .grid,.split{grid-template-columns:1fr}
+      .row{flex-direction:column;align-items:flex-start}
+      .badges{justify-content:flex-start}
     }
   </style>
 </head>
 <body>
-  <div class="status-bar" id="statusBar">
-    <div><span class="dot warn" id="syncDot"></span><span id="syncText">Connexion en cours…</span></div>
-    <div id="lastRefresh">Dernière synchro : —</div>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <div style="font-size:54px;margin-bottom:10px;">🔥</div>
+        <h1>BBQ<br>des frères</h1>
+        <div class="sub">La liste synchronisée pour savoir qui ramène quoi</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>La liste</h2>
+        <div class="small">Tout le monde voit les mêmes données en direct via Supabase.</div>
+        <div id="itemsDisplay" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Modifier</h2>
+        <div class="small">Choisis ton prénom puis coche ce que tu ramènes.</div>
+
+        <label for="personSelect">Qui es-tu ?</label>
+        <select id="personSelect"></select>
+
+        <label>Objets</label>
+        <div id="itemChecklist" class="checks"></div>
+
+        <button id="saveBtn">Enregistrer mes choix</button>
+        <div id="userStatus" class="status"></div>
+
+        <div class="admin-toggle">
+          <span class="linkbtn" id="adminToggleBtn">Ouvrir l'administration</span>
+        </div>
+
+        <div id="adminPanel" class="admin-panel">
+          <label for="adminCode">Code admin</label>
+          <input id="adminCode" type="password" placeholder="Entre le code admin" />
+          <button id="adminLoginBtn">Se connecter</button>
+
+          <div id="adminContent" style="display:none;">
+            <div class="status" id="adminStatus"></div>
+
+            <div class="split" style="margin-top:14px;">
+              <div>
+                <h3 style="margin-bottom:10px;color:var(--ember)">Personnes</h3>
+                <div id="adminPeopleList" class="admin-list"></div>
+                <div class="admin-item" style="margin-top:8px;">
+                  <input id="newPersonInput" placeholder="Nouveau prénom" />
+                  <button class="tiny" id="addPersonBtn" style="width:auto">Ajouter</button>
+                </div>
+              </div>
+
+              <div>
+                <h3 style="margin-bottom:10px;color:var(--ember)">Objets</h3>
+                <div id="adminItemsList" class="admin-list"></div>
+                <div class="admin-item" style="margin-top:8px;">
+                  <input id="newItemInput" placeholder="Nouvel objet" />
+                  <button class="tiny" id="addItemBtn" style="width:auto">Ajouter</button>
+                </div>
+              </div>
+            </div>
+
+            <h3 style="margin-top:20px;margin-bottom:10px;color:var(--ember)">Historique</h3>
+            <div class="history">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Personne</th>
+                    <th>Action</th>
+                    <th>IP</th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          Pense à remplacer seulement ces 2 valeurs dans le script si besoin :
+          <br>1. <span class="muted">API_URL</span>
+          <br>2. <span class="muted">SUPABASE_ANON_KEY</span>
+        </div>
+      </section>
+    </div>
   </div>
 
-  <main id="mainPage">
-    <section class="hero">
-      <div class="hero-content">
-        <span class="hero-emoji">🔥</span>
-        <h1 class="big-title">BBQ<br>des Frères</h1>
-        <p class="hero-sub">La liste partagée pour être au point</p>
-        <div class="hero-actions">
-          <button class="hero-btn" onclick="document.getElementById('listSection').scrollIntoView()">Voir la liste</button>
-          <button class="hero-btn secondary" onclick="document.getElementById('editSection').scrollIntoView()">Modifier ma liste</button>
-        </div>
-      </div>
-    </section>
-
-    <div class="notice">Ce site est synchronisé pour tout le monde. Quand quelqu’un modifie sa liste, tout le monde voit la mise à jour.</div>
-
-    <section class="section" id="listSection">
-      <div class="section-header">
-        <div class="section-title">La liste 📋</div>
-        <div class="section-sub">Ce que chacun ramène</div>
-      </div>
-      <div class="items-container" id="itemsDisplay"></div>
-      <div class="divider">
-        <div class="divider-line"></div>
-        <div class="divider-text">Tu veux modifier ce que tu ramènes ?</div>
-        <div class="divider-line right"></div>
-      </div>
-    </section>
-
-    <section class="section" id="editSection" style="padding-top:0;">
-      <div class="edit-wrap">
-        <div class="section-header" style="margin-bottom:2rem;">
-          <div class="section-title">Modifier ✏️</div>
-          <div class="section-sub">Dis-nous ce que tu ramènes</div>
-        </div>
-
-        <div class="steps">
-          <div class="step active" id="step1-ind"><div class="step-num">1</div><div class="step-label">Qui es-tu</div></div>
-          <div class="step-line" id="line1"></div>
-          <div class="step" id="step2-ind"><div class="step-num">2</div><div class="step-label">Tes trucs</div></div>
-          <div class="step-line" id="line2"></div>
-          <div class="step" id="step3-ind"><div class="step-num">3</div><div class="step-label">Validé</div></div>
-        </div>
-
-        <div class="card active" id="editStep1">
-          <div class="card-title">T’es qui ?</div>
-          <div class="card-sub">Sélectionne ton prénom pour modifier ta liste.</div>
-          <div class="person-grid" id="personGrid"></div>
-          <button class="btn btn-primary" id="btnStep1Next" disabled onclick="goToStep2()">Continuer →</button>
-        </div>
-
-        <div class="card" id="editStep2">
-          <div class="card-title">Tu ramènes quoi ?</div>
-          <div class="card-sub" id="step2Sub">Coche les trucs que tu vas ramener.</div>
-          <div class="check-list" id="itemCheckList"></div>
-          <div class="btn-row">
-            <button class="btn btn-secondary" onclick="goToStep1()">← Retour</button>
-            <button class="btn btn-primary" id="saveSelectionBtn" onclick="saveSelection()">Valider mes choix 🔥</button>
-          </div>
-        </div>
-
-        <div class="card" id="editStep3">
-          <div class="success-screen">
-            <span class="icon">✅</span>
-            <div class="card-title" style="font-size:2.2rem;">C’est noté frère</div>
-            <p id="successMsg">La liste a été mise à jour.</p>
-            <div style="margin-top:1.2rem;"><button class="btn btn-primary" style="max-width:320px;" onclick="resetEdit()">Modifier autre chose</button></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <section class="admin-page" id="adminPage">
-    <div class="admin-login" id="adminLoginBox">
-      <h2>🔐 Admin</h2>
-      <p class="small" style="margin-bottom:1rem;">Entre le code d’accès administrateur.</p>
-      <input type="password" class="pin-input" id="adminPinInput" placeholder="Code admin" />
-      <div class="btn-row" style="margin-top:1rem;">
-        <button class="btn btn-primary" onclick="adminLogin()">Accéder</button>
-      </div>
-      <p class="small" id="adminLoginMsg" style="margin-top:0.9rem;"></p>
-    </div>
-
-    <div id="adminDashboard" class="hidden">
-      <div class="admin-header">
-        <div>
-          <div class="admin-title">🔥 BBQ Admin</div>
-          <div class="small">Panneau synchronisé avec la base Supabase</div>
-        </div>
-        <div class="btn-row" style="justify-content:flex-end;">
-          <button class="btn btn-secondary" onclick="refreshAdmin()">Actualiser</button>
-          <button class="btn btn-secondary" onclick="logoutAdmin()">Déconnexion</button>
-        </div>
-      </div>
-
-      <div class="admin-grid">
-        <div class="panel">
-          <h3>👤 Personnes</h3>
-          <div class="stack" id="adminPeopleList"></div>
-          <div class="add-row">
-            <input type="text" id="newPersonInput" placeholder="Nouveau prénom" />
-            <button class="icon-btn ok" onclick="createPerson()">+</button>
-          </div>
-        </div>
-
-        <div class="panel">
-          <h3>📦 Objets</h3>
-          <div class="stack" id="adminItemsList"></div>
-          <div class="add-row">
-            <input type="text" id="newItemInput" placeholder="Nouvel objet" />
-            <button class="icon-btn ok" onclick="createItem()">+</button>
-          </div>
-        </div>
-
-        <div class="panel">
-          <h3>⚠️ IPs suspectes</h3>
-          <div class="stack" id="suspiciousList"></div>
-        </div>
-
-        <div class="panel full">
-          <h3>📜 Historique</h3>
-          <div style="overflow:auto;">
-            <table>
-              <thead>
-                <tr><th>Date</th><th>Personne</th><th>Action</th><th>IP</th></tr>
-              </thead>
-              <tbody id="historyBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="toast" id="toast"></div>
-
   <script>
-    const CONFIG = {
-      apiBaseUrl: 'https://davzwcyrmgnozwytuerl.supabase.co/functions/v1/bbq-api',
-      supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnp3Y3lybWdub3p3eXR1ZXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzMzNTksImV4cCI6MjA5MDgwOTM1OX0.G2u26YOMbCBR2G26QwcQmI8p48G5eSO6dFvoaXpLupI'
+    const API_URL = "https://davzwcyrmgnqzwytyuerl.supabase.co/functions/v1/bbq-api";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnp3Y3lybWdub3p3eXR1ZXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzMzNTksImV4cCI6MjA5MDgwOTM1OX0.G2u26YOMbCBR2G26QwcQmI8p48G5eSO6dFvoaXpLupI";
+
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+      "apikey": SUPABASE_ANON_KEY
     };
 
-    const appState = {
+    let state = {
       people: [],
       items: [],
-      assignmentsByItemId: {},
-      selectedPersonId: null,
-      checkedItems: new Set(),
-      adminToken: sessionStorage.getItem('bbq_admin_token') || ''
+      assignments: [],
+      history: []
     };
 
-    function escapeHtml(value) {
-      return String(value)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+    let adminToken = "";
+    let adminLogged = false;
+
+    const els = {
+      itemsDisplay: document.getElementById("itemsDisplay"),
+      personSelect: document.getElementById("personSelect"),
+      itemChecklist: document.getElementById("itemChecklist"),
+      saveBtn: document.getElementById("saveBtn"),
+      userStatus: document.getElementById("userStatus"),
+      adminToggleBtn: document.getElementById("adminToggleBtn"),
+      adminPanel: document.getElementById("adminPanel"),
+      adminCode: document.getElementById("adminCode"),
+      adminLoginBtn: document.getElementById("adminLoginBtn"),
+      adminContent: document.getElementById("adminContent"),
+      adminStatus: document.getElementById("adminStatus"),
+      adminPeopleList: document.getElementById("adminPeopleList"),
+      adminItemsList: document.getElementById("adminItemsList"),
+      newPersonInput: document.getElementById("newPersonInput"),
+      newItemInput: document.getElementById("newItemInput"),
+      addPersonBtn: document.getElementById("addPersonBtn"),
+      addItemBtn: document.getElementById("addItemBtn"),
+      historyBody: document.getElementById("historyBody")
+    };
+
+    function setStatus(el, message, type="") {
+      el.className = "status " + type;
+      el.textContent = message || "";
     }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
-    }
+    async function api(action, payload = {}) {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ action, adminToken, ...payload })
+      });
 
-    function setSyncState(kind, text) {
-      const dot = document.getElementById('syncDot');
-      const syncText = document.getElementById('syncText');
-      dot.className = 'dot ' + kind;
-      syncText.textContent = text;
-      document.getElementById('lastRefresh').textContent = 'Dernière synchro : ' + new Date().toLocaleString('fr-FR');
-    }
+      const data = await res.json().catch(() => ({}));
 
-    async function api(path = '', options = {}) {
-      if (!CONFIG.apiBaseUrl || CONFIG.apiBaseUrl.includes('PASTE_YOUR')) {
-        throw new Error('Tu dois d’abord coller ton URL de fonction Supabase dans CONFIG.apiBaseUrl.');
+      if (!res.ok) {
+        throw new Error(data.error || data.message || ("Erreur API " + res.status));
       }
-      if (!CONFIG.supabaseAnonKey || CONFIG.supabaseAnonKey.includes('PASTE_YOUR')) {
-        throw new Error('Tu dois aussi coller ta clé anon Supabase dans CONFIG.supabaseAnonKey.');
-      }
-      const url = CONFIG.apiBaseUrl + path;
-      const authToken = appState.adminToken || CONFIG.supabaseAnonKey;
-      const headers = {
-        'Content-Type': 'application/json',
-        'apikey': CONFIG.supabaseAnonKey,
-        'Authorization': 'Bearer ' + authToken,
-        ...(options.headers || {})
-      };
-      const res = await fetch(url, { ...options, headers });
-      const text = await res.text();
-      let data;
-      try { data = text ? JSON.parse(text) : {}; } catch { data = { error: text || 'Réponse invalide' }; }
-      if (!res.ok) throw new Error(data.error || 'Erreur API');
+
       return data;
     }
 
-    async function loadPublicData(showStatus = true) {
-      try {
-        if (showStatus) setSyncState('warn', 'Synchronisation…');
-        const data = await api('?action=bootstrap', { method: 'GET' });
-        appState.people = data.people || [];
-        appState.items = data.items || [];
-        appState.assignmentsByItemId = data.assignmentsByItemId || {};
-        renderList();
-        renderPersonGrid();
-        if (showStatus) setSyncState('ok', 'Connecté et synchronisé');
-      } catch (err) {
-        console.error(err);
-        setSyncState('bad', 'Erreur de connexion');
-        showToast(err.message || 'Impossible de charger les données');
-      }
+    function assignmentNamesForItem(itemId) {
+      const rows = state.assignments.filter(a => Number(a.item_id) === Number(itemId));
+      return rows.map(r => {
+        const p = state.people.find(x => Number(x.id) === Number(r.person_id));
+        return p ? p.name : "";
+      }).filter(Boolean);
+    }
+
+    function personAssignedItemIds(personId) {
+      return new Set(
+        state.assignments
+          .filter(a => Number(a.person_id) === Number(personId))
+          .map(a => Number(a.item_id))
+      );
     }
 
     function renderList() {
-      const container = document.getElementById('itemsDisplay');
-      container.innerHTML = '';
-      appState.items.forEach(item => {
-        const assigned = appState.assignmentsByItemId[item.id] || [];
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        const badges = assigned.length
-          ? assigned.map(name => `<span class="badge">${escapeHtml(name)}</span>`).join('')
-          : `<span class="muted">—</span>`;
-        card.innerHTML = `
+      els.itemsDisplay.innerHTML = "";
+      state.items.forEach(item => {
+        const people = assignmentNamesForItem(item.id);
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
           <div class="item-name">${escapeHtml(item.name)}</div>
-          <div class="item-assignees">${badges}</div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function renderPersonGrid() {
-      const grid = document.getElementById('personGrid');
-      grid.innerHTML = '';
-      appState.people.forEach(person => {
-        const btn = document.createElement('button');
-        btn.className = 'person-btn' + (person.id === appState.selectedPersonId ? ' selected' : '');
-        btn.textContent = person.name;
-        btn.onclick = () => selectPerson(person.id);
-        grid.appendChild(btn);
-      });
-    }
-
-    function selectPerson(personId) {
-      appState.selectedPersonId = personId;
-      renderPersonGrid();
-      document.getElementById('btnStep1Next').disabled = false;
-    }
-
-    function goToStep2() {
-      if (!appState.selectedPersonId) return;
-      const person = appState.people.find(p => p.id === appState.selectedPersonId);
-      appState.checkedItems = new Set();
-      appState.items.forEach(item => {
-        const assignedNames = appState.assignmentsByItemId[item.id] || [];
-        if (assignedNames.includes(person.name)) appState.checkedItems.add(item.id);
-      });
-      document.getElementById('step2Sub').textContent = `Salut ${person.name} ! Coche ce que tu ramènes 👇`;
-      renderItemChecklist();
-      setStep(2);
-    }
-
-    function renderItemChecklist() {
-      const list = document.getElementById('itemCheckList');
-      const person = appState.people.find(p => p.id === appState.selectedPersonId);
-      list.innerHTML = '';
-      appState.items.forEach(item => {
-        const isChecked = appState.checkedItems.has(item.id);
-        const others = (appState.assignmentsByItemId[item.id] || []).filter(name => name !== person.name && name !== 'Chacun ramène');
-        const div = document.createElement('div');
-        div.className = 'check-item' + (isChecked ? ' checked' : '');
-        div.onclick = () => toggleItem(item.id, div);
-        div.innerHTML = `
-          <div class="box">✓</div>
-          <div class="check-main">
-            <strong>${escapeHtml(item.name)}</strong>
-            <div class="check-help">${others.length ? 'Déjà pris par : ' + others.map(escapeHtml).join(', ') : 'Pas encore pris'}</div>
+          <div class="badges">
+            ${
+              people.length
+                ? people.map(name => `<span class="badge">${escapeHtml(name)}</span>`).join("")
+                : `<span class="none">Non assigné</span>`
+            }
           </div>
         `;
-        list.appendChild(div);
+        els.itemsDisplay.appendChild(row);
       });
     }
 
-    function toggleItem(itemId, el) {
-      if (appState.checkedItems.has(itemId)) {
-        appState.checkedItems.delete(itemId);
-        el.classList.remove('checked');
-      } else {
-        appState.checkedItems.add(itemId);
-        el.classList.add('checked');
+    function renderUserForm() {
+      const current = Number(els.personSelect.value) || (state.people[0] ? Number(state.people[0].id) : 0);
+
+      els.personSelect.innerHTML = state.people
+        .map(p => `<option value="${p.id}" ${Number(p.id)===current ? "selected" : ""}>${escapeHtml(p.name)}</option>`)
+        .join("");
+
+      const assigned = personAssignedItemIds(current);
+
+      els.itemChecklist.innerHTML = "";
+      state.items.forEach(item => {
+        const assignedNames = assignmentNamesForItem(item.id);
+        const checked = assigned.has(Number(item.id));
+        const box = document.createElement("label");
+        box.className = "check";
+        box.innerHTML = `
+          <input type="checkbox" data-item-id="${item.id}" ${checked ? "checked" : ""}>
+          <div>
+            <div class="check-title">${escapeHtml(item.name)}</div>
+            <div class="check-meta">${assignedNames.length ? "Déjà pris par : " + escapeHtml(assignedNames.join(", ")) : "Personne pour l'instant"}</div>
+          </div>
+        `;
+        els.itemChecklist.appendChild(box);
+      });
+    }
+
+    function renderAdmin() {
+      if (!adminLogged) return;
+
+      els.adminPeopleList.innerHTML = "";
+      state.people.forEach(p => {
+        const row = document.createElement("div");
+        row.className = "admin-item";
+        row.innerHTML = `
+          <input value="${escapeAttr(p.name)}" data-id="${p.id}" class="person-edit">
+          <button class="tiny secondary save-person" data-id="${p.id}">Modifier</button>
+          <button class="tiny" style="background:#6b1a1a" data-del-person="${p.id}">Supprimer</button>
+        `;
+        els.adminPeopleList.appendChild(row);
+      });
+
+      els.adminItemsList.innerHTML = "";
+      state.items.forEach(i => {
+        const row = document.createElement("div");
+        row.className = "admin-item";
+        row.innerHTML = `
+          <input value="${escapeAttr(i.name)}" data-id="${i.id}" class="item-edit">
+          <button class="tiny secondary save-item" data-id="${i.id}">Modifier</button>
+          <button class="tiny" style="background:#6b1a1a" data-del-item="${i.id}">Supprimer</button>
+        `;
+        els.adminItemsList.appendChild(row);
+      });
+
+      els.historyBody.innerHTML = "";
+      (state.history || []).forEach(h => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHtml(formatDate(h.created_at || h.time || ""))}</td>
+          <td>${escapeHtml(h.person_name || h.person || "")}</td>
+          <td>${escapeHtml(h.action || "")}</td>
+          <td>${escapeHtml(h.ip || "")}</td>
+        `;
+        els.historyBody.appendChild(tr);
+      });
+    }
+
+    async function loadData() {
+      setStatus(els.userStatus, "Chargement...");
+      try {
+        const data = await api("get_data");
+        state.people = data.people || [];
+        state.items = data.items || [];
+        state.assignments = data.assignments || [];
+        state.history = data.history || [];
+        renderList();
+        renderUserForm();
+        renderAdmin();
+        setStatus(els.userStatus, "");
+      } catch (e) {
+        setStatus(els.userStatus, e.message, "err");
       }
     }
 
-    async function saveSelection() {
-      const person = appState.people.find(p => p.id === appState.selectedPersonId);
-      if (!person) return;
-      const btn = document.getElementById('saveSelectionBtn');
-      btn.disabled = true;
-      btn.textContent = 'Enregistrement…';
+    async function saveMyChoices() {
+      const personId = Number(els.personSelect.value);
+      if (!personId) {
+        setStatus(els.userStatus, "Choisis ton prénom.", "err");
+        return;
+      }
+
+      const itemIds = [...els.itemChecklist.querySelectorAll('input[type="checkbox"]:checked')]
+        .map(i => Number(i.dataset.itemId));
+
+      setStatus(els.userStatus, "Enregistrement...");
       try {
-        await api('', {
-          method: 'POST',
-          body: JSON.stringify({
-            action: 'save_selection',
-            personId: person.id,
-            itemIds: [...appState.checkedItems]
-          })
-        });
-        document.getElementById('successMsg').textContent = `${person.name}, ta liste est à jour 🔥`;
-        setStep(3);
-        await loadPublicData(false);
-        showToast('Liste mise à jour');
-      } catch (err) {
-        console.error(err);
-        showToast(err.message || 'Erreur lors de la sauvegarde');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Valider mes choix 🔥';
+        await api("update_assignments", { personId, itemIds });
+        setStatus(els.userStatus, "C'est enregistré.", "ok");
+        await loadData();
+      } catch (e) {
+        setStatus(els.userStatus, e.message, "err");
       }
     }
 
-    function resetEdit() {
-      appState.selectedPersonId = null;
-      appState.checkedItems = new Set();
-      document.getElementById('btnStep1Next').disabled = true;
-      renderPersonGrid();
-      setStep(1);
-    }
-
-    function goToStep1() { setStep(1); }
-
-    function setStep(n) {
-      ['editStep1','editStep2','editStep3'].forEach((id, i) => {
-        document.getElementById(id).classList.toggle('active', i + 1 === n);
-      });
-      ['step1-ind','step2-ind','step3-ind'].forEach((id, i) => {
-        document.getElementById(id).className = 'step' + (i + 1 < n ? ' done' : i + 1 === n ? ' active' : '');
-      });
-      ['line1','line2'].forEach((id, i) => {
-        document.getElementById(id).classList.toggle('done', i + 1 < n);
-      });
-    }
-
-    function isAdminRoute() {
-      return window.location.hash === '#admin' || window.location.hash.startsWith('#admin?');
-    }
-
-    function showAdminPage() {
-      document.getElementById('mainPage').classList.add('hidden');
-      document.getElementById('adminPage').classList.add('visible');
-    }
-
-    function showMainPage() {
-      document.getElementById('mainPage').classList.remove('hidden');
-      document.getElementById('adminPage').classList.remove('visible');
-    }
-
-    async function adminLogin() {
-      const pin = document.getElementById('adminPinInput').value.trim();
-      const msg = document.getElementById('adminLoginMsg');
-      msg.textContent = 'Connexion…';
+    async function loginAdmin() {
+      adminToken = els.adminCode.value.trim();
+      if (!adminToken) {
+        setStatus(els.adminStatus, "Entre le code admin.", "err");
+        return;
+      }
+      setStatus(els.adminStatus, "Connexion admin...");
       try {
-        const data = await api('', {
-          method: 'POST',
-          body: JSON.stringify({ action: 'admin_login', pin })
-        });
-        appState.adminToken = data.token;
-        sessionStorage.setItem('bbq_admin_token', data.token);
-        document.getElementById('adminLoginBox').classList.add('hidden');
-        document.getElementById('adminDashboard').classList.remove('hidden');
-        msg.textContent = '';
+        const data = await api("admin_dashboard");
+        adminLogged = true;
+        state.people = data.people || state.people;
+        state.items = data.items || state.items;
+        state.assignments = data.assignments || state.assignments;
+        state.history = data.history || state.history;
+        els.adminContent.style.display = "block";
+        renderList();
+        renderUserForm();
+        renderAdmin();
+        setStatus(els.adminStatus, "Connecté.", "ok");
+      } catch (e) {
+        adminLogged = false;
+        els.adminContent.style.display = "none";
+        setStatus(els.adminStatus, e.message, "err");
+      }
+    }
+
+    async function addPerson() {
+      const name = els.newPersonInput.value.trim();
+      if (!name) return;
+      try {
+        await api("admin_add_person", { name });
+        els.newPersonInput.value = "";
+        setStatus(els.adminStatus, "Personne ajoutée.", "ok");
         await refreshAdmin();
-      } catch (err) {
-        msg.textContent = err.message || 'Code incorrect';
+      } catch (e) {
+        setStatus(els.adminStatus, e.message, "err");
       }
     }
 
-    function logoutAdmin() {
-      appState.adminToken = '';
-      sessionStorage.removeItem('bbq_admin_token');
-      document.getElementById('adminDashboard').classList.add('hidden');
-      document.getElementById('adminLoginBox').classList.remove('hidden');
-      document.getElementById('adminPinInput').value = '';
-      document.getElementById('adminLoginMsg').textContent = '';
-    }
-
-    async function ensureAdminSession() {
-      if (!appState.adminToken) {
-        logoutAdmin();
-        return false;
-      }
+    async function addItem() {
+      const name = els.newItemInput.value.trim();
+      if (!name) return;
       try {
-        await api('?action=admin_status', { method: 'GET' });
-        document.getElementById('adminLoginBox').classList.add('hidden');
-        document.getElementById('adminDashboard').classList.remove('hidden');
-        return true;
-      } catch {
-        logoutAdmin();
-        return false;
+        await api("admin_add_item", { name });
+        els.newItemInput.value = "";
+        setStatus(els.adminStatus, "Objet ajouté.", "ok");
+        await refreshAdmin();
+      } catch (e) {
+        setStatus(els.adminStatus, e.message, "err");
       }
     }
 
     async function refreshAdmin() {
-      try {
-        const data = await api('?action=admin_dashboard', { method: 'GET' });
-        appState.people = data.people || appState.people;
-        appState.items = data.items || appState.items;
-        appState.assignmentsByItemId = data.assignmentsByItemId || appState.assignmentsByItemId;
-        renderAdminPeople(data.people || []);
-        renderAdminItems(data.items || []);
-        renderHistory(data.history || []);
-        renderSuspicious(data.suspicious || []);
-        renderList();
-        renderPersonGrid();
-      } catch (err) {
-        showToast(err.message || 'Erreur admin');
-      }
-    }
-
-    function renderAdminPeople(people) {
-      const box = document.getElementById('adminPeopleList');
-      box.innerHTML = '';
-      people.forEach(person => {
-        const row = document.createElement('div');
-        row.className = 'row';
-        row.innerHTML = `
-          <input type="text" value="${escapeHtml(person.name)}" data-id="${person.id}">
-          <button class="icon-btn edit">💾</button>
-          <button class="icon-btn danger">✕</button>
-        `;
-        row.querySelector('.edit').onclick = async () => renamePerson(person.id, row.querySelector('input').value);
-        row.querySelector('.danger').onclick = async () => deletePerson(person.id, person.name);
-        box.appendChild(row);
-      });
-    }
-
-    function renderAdminItems(items) {
-      const box = document.getElementById('adminItemsList');
-      box.innerHTML = '';
-      items.forEach(item => {
-        const row = document.createElement('div');
-        row.className = 'row';
-        row.innerHTML = `
-          <input type="text" value="${escapeHtml(item.name)}" data-id="${item.id}">
-          <button class="icon-btn edit">💾</button>
-          <button class="icon-btn danger">✕</button>
-        `;
-        row.querySelector('.edit').onclick = async () => renameItem(item.id, row.querySelector('input').value);
-        row.querySelector('.danger').onclick = async () => deleteItem(item.id, item.name);
-        box.appendChild(row);
-      });
-    }
-
-    function renderHistory(history) {
-      const body = document.getElementById('historyBody');
-      body.innerHTML = '';
-      if (!history.length) {
-        body.innerHTML = `<tr><td colspan="4" class="small">Aucun historique pour l’instant.</td></tr>`;
-        return;
-      }
-      history.forEach(entry => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${escapeHtml(new Date(entry.created_at).toLocaleString('fr-FR'))}</td>
-          <td>${escapeHtml(entry.person_name || '—')}</td>
-          <td>${escapeHtml(entry.action_text)}</td>
-          <td class="code">${escapeHtml(entry.client_ip || '—')}</td>
-        `;
-        body.appendChild(tr);
-      });
-    }
-
-    function renderSuspicious(rows) {
-      const box = document.getElementById('suspiciousList');
-      box.innerHTML = '';
-      if (!rows.length) {
-        box.innerHTML = `<div class="small">Aucune activité suspecte 👍</div>`;
-        return;
-      }
-      rows.forEach(row => {
-        const div = document.createElement('div');
-        div.className = 'pill-alert';
-        div.innerHTML = `<strong>${escapeHtml(row.client_ip)}</strong><br><span class="small">${row.people_count} personnes différentes : ${escapeHtml(row.people.join(', '))}</span>`;
-        box.appendChild(div);
-      });
-    }
-
-    async function createPerson() {
-      const input = document.getElementById('newPersonInput');
-      const name = input.value.trim();
-      if (!name) return;
-      try {
-        await api('', { method: 'POST', body: JSON.stringify({ action: 'admin_create_person', name }) });
-        input.value = '';
-        await refreshAdmin();
-        showToast('Personne ajoutée');
-      } catch (err) { showToast(err.message); }
+      const data = await api("admin_dashboard");
+      state.people = data.people || [];
+      state.items = data.items || [];
+      state.assignments = data.assignments || [];
+      state.history = data.history || [];
+      renderList();
+      renderUserForm();
+      renderAdmin();
     }
 
     async function renamePerson(id, name) {
-      if (!name.trim()) return showToast('Nom invalide');
       try {
-        await api('', { method: 'POST', body: JSON.stringify({ action: 'admin_rename_person', id, name: name.trim() }) });
+        await api("admin_rename_person", { id: Number(id), name });
+        setStatus(els.adminStatus, "Personne modifiée.", "ok");
         await refreshAdmin();
-        showToast('Personne modifiée');
-      } catch (err) { showToast(err.message); }
-    }
-
-    async function deletePerson(id, name) {
-      if (!confirm(`Supprimer ${name} ?`)) return;
-      try {
-        await api('', { method: 'POST', body: JSON.stringify({ action: 'admin_delete_person', id }) });
-        await refreshAdmin();
-        showToast('Personne supprimée');
-      } catch (err) { showToast(err.message); }
-    }
-
-    async function createItem() {
-      const input = document.getElementById('newItemInput');
-      const name = input.value.trim();
-      if (!name) return;
-      try {
-        await api('', { method: 'POST', body: JSON.stringify({ action: 'admin_create_item', name }) });
-        input.value = '';
-        await refreshAdmin();
-        showToast('Objet ajouté');
-      } catch (err) { showToast(err.message); }
+      } catch (e) {
+        setStatus(els.adminStatus, e.message, "err");
+      }
     }
 
     async function renameItem(id, name) {
-      if (!name.trim()) return showToast('Nom invalide');
       try {
-        await api('', { method: 'POST', body: JSON.stringify({ action: 'admin_rename_item', id, name: name.trim() }) });
+        await api("admin_rename_item", { id: Number(id), name });
+        setStatus(els.adminStatus, "Objet modifié.", "ok");
         await refreshAdmin();
-        showToast('Objet modifié');
-      } catch (err) { showToast(err.message); }
-    }
-
-    async function deleteItem(id, name) {
-      if (!confirm(`Supprimer ${name} ?`)) return;
-      try {
-        await api('', { method: 'POST', body: JSON.stringify({ action: 'admin_delete_item', id }) });
-        await refreshAdmin();
-        showToast('Objet supprimé');
-      } catch (err) { showToast(err.message); }
-    }
-
-    async function bootstrapPage() {
-      await loadPublicData();
-      if (isAdminRoute()) {
-        showAdminPage();
-        await ensureAdminSession();
-      } else {
-        showMainPage();
+      } catch (e) {
+        setStatus(els.adminStatus, e.message, "err");
       }
     }
 
-    window.addEventListener('hashchange', async () => {
-      if (isAdminRoute()) {
-        showAdminPage();
-        await ensureAdminSession();
-      } else {
-        showMainPage();
+    async function deletePerson(id) {
+      try {
+        await api("admin_delete_person", { id: Number(id) });
+        setStatus(els.adminStatus, "Personne supprimée.", "ok");
+        await refreshAdmin();
+      } catch (e) {
+        setStatus(els.adminStatus, e.message, "err");
+      }
+    }
+
+    async function deleteItem(id) {
+      try {
+        await api("admin_delete_item", { id: Number(id) });
+        setStatus(els.adminStatus, "Objet supprimé.", "ok");
+        await refreshAdmin();
+      } catch (e) {
+        setStatus(els.adminStatus, e.message, "err");
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str);
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return value;
+      return d.toLocaleString("fr-FR");
+    }
+
+    els.personSelect.addEventListener("change", renderUserForm);
+    els.saveBtn.addEventListener("click", saveMyChoices);
+    els.adminToggleBtn.addEventListener("click", () => {
+      els.adminPanel.classList.toggle("show");
+    });
+    els.adminLoginBtn.addEventListener("click", loginAdmin);
+    els.addPersonBtn.addEventListener("click", addPerson);
+    els.addItemBtn.addEventListener("click", addItem);
+
+    els.newPersonInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") addPerson();
+    });
+    els.newItemInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") addItem();
+    });
+
+    document.addEventListener("click", async (e) => {
+      const savePersonBtn = e.target.closest(".save-person");
+      if (savePersonBtn) {
+        const id = savePersonBtn.dataset.id;
+        const input = document.querySelector(`.person-edit[data-id="${id}"]`);
+        if (input) await renamePerson(id, input.value.trim());
+        return;
+      }
+
+      const saveItemBtn = e.target.closest(".save-item");
+      if (saveItemBtn) {
+        const id = saveItemBtn.dataset.id;
+        const input = document.querySelector(`.item-edit[data-id="${id}"]`);
+        if (input) await renameItem(id, input.value.trim());
+        return;
+      }
+
+      const delPersonBtn = e.target.closest("[data-del-person]");
+      if (delPersonBtn) {
+        await deletePerson(delPersonBtn.dataset.delPerson);
+        return;
+      }
+
+      const delItemBtn = e.target.closest("[data-del-item]");
+      if (delItemBtn) {
+        await deleteItem(delItemBtn.dataset.delItem);
       }
     });
 
-    bootstrapPage();
-    setInterval(() => loadPublicData(false), 15000);
+    loadData();
   </script>
 </body>
 </html>
