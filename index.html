@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BBQ des frères 🔥</title>
   <style>
-    :root{--panel:#1b1b1b;--panel2:#232323;--text:#f5f0e8;--muted:#b8b1a7;--fire:#ff5a1f;--ember:#ff9a1f;--danger:#ff4d4f;--ok:#36c96d;--line:#333}
+    :root{--bg:#111;--panel:#1b1b1b;--panel2:#232323;--text:#f5f0e8;--muted:#b8b1a7;--fire:#ff5a1f;--ember:#ff9a1f;--danger:#ff4d4f;--ok:#36c96d;--line:#333}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#130b08 0%,#111 30%,#111 100%);color:var(--text);min-height:100vh}
     .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    .hero{min-height:38vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
+    .hero{min-height:34vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
     h1{font-size:clamp(42px,8vw,92px);line-height:.95;color:var(--ember);margin-bottom:12px}
     .sub{color:var(--muted);font-size:15px}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;margin-top:10px}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
     .card h2{font-size:28px;margin-bottom:6px;color:var(--ember)}
     .small{color:var(--muted);font-size:14px;margin-bottom:18px}
@@ -36,10 +36,13 @@
     .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
     .admin-item input{margin:0}
     .tiny{width:auto;padding:10px 12px;margin:0;white-space:nowrap}
+    .danger{background:#6b1a1a}
     .status{margin-top:10px;font-size:14px;color:var(--muted);min-height:20px}
     .ok{color:var(--ok)} .err{color:var(--danger)}
     .history{margin-top:18px;max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:12px}
-    table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #2a2a2a;font-size:13px} th{color:var(--muted);background:#171717;position:sticky;top:0}
+    table{width:100%;border-collapse:collapse}
+    th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #2a2a2a;font-size:13px}
+    th{color:var(--muted);background:#171717;position:sticky;top:0}
     @media (max-width:860px){.grid,.split{grid-template-columns:1fr}.row{flex-direction:column;align-items:flex-start}.badges{justify-content:flex-start}}
   </style>
 </head>
@@ -56,7 +59,7 @@
     <div class="grid">
       <section class="card">
         <h2>La liste</h2>
-        <div class="small">Données partagées entre tout le monde.</div>
+        <div class="small">Tout le monde voit les mêmes données.</div>
         <div id="itemsDisplay" class="list"></div>
       </section>
 
@@ -163,11 +166,9 @@ function setStatus(el, message, type="") {
   el.className = "status " + type;
   el.textContent = message || "";
 }
-
 function esc(str) {
   return String(str ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
-
 function formatDate(value) {
   if (!value) return "";
   const d = new Date(value);
@@ -175,15 +176,11 @@ function formatDate(value) {
 }
 
 async function getPublic(action="bootstrap") {
-  const res = await fetch(API_URL + "?action=" + encodeURIComponent(action), {
-    method: "GET",
-    headers: anonHeaders
-  });
+  const res = await fetch(API_URL + "?action=" + encodeURIComponent(action), { method: "GET", headers: anonHeaders });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
   return data;
 }
-
 async function postPublic(action, payload={}) {
   const res = await fetch(API_URL, {
     method: "POST",
@@ -194,17 +191,12 @@ async function postPublic(action, payload={}) {
   if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
   return data;
 }
-
 async function getAdminDashboard() {
-  const res = await fetch(API_URL + "?action=admin_dashboard", {
-    method: "GET",
-    headers: adminHeaders()
-  });
+  const res = await fetch(API_URL + "?action=admin_dashboard", { method: "GET", headers: adminHeaders() });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
   return data;
 }
-
 async function postAdmin(action, payload={}) {
   const res = await fetch(API_URL, {
     method: "POST",
@@ -219,7 +211,6 @@ async function postAdmin(action, payload={}) {
 function namesForItem(itemId) {
   return state.assignmentsByItemId[String(itemId)] || [];
 }
-
 function checkedItemIdsForPerson(personName) {
   const ids = [];
   state.items.forEach(item => {
@@ -238,8 +229,7 @@ function renderList() {
       <div class="item-name">${esc(item.name)}</div>
       <div class="badges">
         ${names.length ? names.map(n => `<span class="badge">${esc(n)}</span>`).join("") : `<span class="none">Non assigné</span>`}
-      </div>
-    `;
+      </div>`;
     els.itemsDisplay.appendChild(row);
   });
 }
@@ -263,8 +253,7 @@ function renderUserForm() {
       <div>
         <div class="check-title">${esc(item.name)}</div>
         <div class="check-meta">${names.length ? "Déjà pris par : " + esc(names.join(", ")) : "Personne pour l'instant"}</div>
-      </div>
-    `;
+      </div>`;
     els.itemChecklist.appendChild(label);
   });
 }
@@ -277,8 +266,7 @@ function renderAdmin() {
     row.innerHTML = `
       <input value="${esc(p.name)}" data-id="${esc(p.id)}" class="person-edit">
       <button class="tiny secondary save-person" data-id="${esc(p.id)}">Modifier</button>
-      <button class="tiny" style="background:#6b1a1a" data-del-person="${esc(p.id)}">Supprimer</button>
-    `;
+      <button class="tiny danger" data-del-person="${esc(p.id)}">Supprimer</button>`;
     els.adminPeopleList.appendChild(row);
   });
 
@@ -289,8 +277,7 @@ function renderAdmin() {
     row.innerHTML = `
       <input value="${esc(i.name)}" data-id="${esc(i.id)}" class="item-edit">
       <button class="tiny secondary save-item" data-id="${esc(i.id)}">Modifier</button>
-      <button class="tiny" style="background:#6b1a1a" data-del-item="${esc(i.id)}">Supprimer</button>
-    `;
+      <button class="tiny danger" data-del-item="${esc(i.id)}">Supprimer</button>`;
     els.adminItemsList.appendChild(row);
   });
 
@@ -300,9 +287,8 @@ function renderAdmin() {
     tr.innerHTML = `
       <td>${esc(formatDate(h.created_at))}</td>
       <td>${esc(h.person_name || "")}</td>
-      <td>${esc(h.action_text || h.action || "")}</td>
-      <td>${esc(h.client_ip || h.ip || "")}</td>
-    `;
+      <td>${esc(h.action_text || "")}</td>
+      <td>${esc(h.client_ip || "")}</td>`;
     els.historyBody.appendChild(tr);
   });
 }
@@ -319,20 +305,18 @@ async function loadData() {
     setStatus(els.userStatus, e.message, "err");
   }
 }
-
 async function saveMyChoices() {
   const personId = els.personSelect.value;
-  const checked = [...els.itemChecklist.querySelectorAll('input[type="checkbox"]:checked')].map(x => x.dataset.itemId);
+  const itemIds = [...els.itemChecklist.querySelectorAll('input[type="checkbox"]:checked')].map(x => x.dataset.itemId);
   try {
     setStatus(els.userStatus, "Enregistrement...");
-    await postPublic("save_selection", { personId, itemIds: checked });
+    await postPublic("save_selection", { personId, itemIds });
     await loadData();
     setStatus(els.userStatus, "C'est enregistré.", "ok");
   } catch (e) {
     setStatus(els.userStatus, e.message, "err");
   }
 }
-
 async function loginAdmin() {
   try {
     setStatus(els.adminStatus, "Connexion...");
@@ -349,7 +333,6 @@ async function loginAdmin() {
     setStatus(els.adminStatus, e.message, "err");
   }
 }
-
 async function refreshAdmin() {
   const dash = await getAdminDashboard();
   state = { ...state, ...dash };
@@ -357,67 +340,49 @@ async function refreshAdmin() {
   renderUserForm();
   renderAdmin();
 }
-
 async function addPerson() {
   try {
     await postAdmin("admin_create_person", { name: els.newPersonInput.value.trim() });
     els.newPersonInput.value = "";
     await refreshAdmin();
     setStatus(els.adminStatus, "Personne ajoutée.", "ok");
-  } catch (e) {
-    setStatus(els.adminStatus, e.message, "err");
-  }
+  } catch (e) { setStatus(els.adminStatus, e.message, "err"); }
 }
-
 async function addItem() {
   try {
     await postAdmin("admin_create_item", { name: els.newItemInput.value.trim() });
     els.newItemInput.value = "";
     await refreshAdmin();
     setStatus(els.adminStatus, "Objet ajouté.", "ok");
-  } catch (e) {
-    setStatus(els.adminStatus, e.message, "err");
-  }
+  } catch (e) { setStatus(els.adminStatus, e.message, "err"); }
 }
-
 async function renamePerson(id, name) {
   try {
     await postAdmin("admin_rename_person", { id, name });
     await refreshAdmin();
     setStatus(els.adminStatus, "Personne modifiée.", "ok");
-  } catch (e) {
-    setStatus(els.adminStatus, e.message, "err");
-  }
+  } catch (e) { setStatus(els.adminStatus, e.message, "err"); }
 }
-
 async function renameItem(id, name) {
   try {
     await postAdmin("admin_rename_item", { id, name });
     await refreshAdmin();
     setStatus(els.adminStatus, "Objet modifié.", "ok");
-  } catch (e) {
-    setStatus(els.adminStatus, e.message, "err");
-  }
+  } catch (e) { setStatus(els.adminStatus, e.message, "err"); }
 }
-
 async function deletePerson(id) {
   try {
     await postAdmin("admin_delete_person", { id });
     await refreshAdmin();
     setStatus(els.adminStatus, "Personne supprimée.", "ok");
-  } catch (e) {
-    setStatus(els.adminStatus, e.message, "err");
-  }
+  } catch (e) { setStatus(els.adminStatus, e.message, "err"); }
 }
-
 async function deleteItem(id) {
   try {
     await postAdmin("admin_delete_item", { id });
     await refreshAdmin();
     setStatus(els.adminStatus, "Objet supprimé.", "ok");
-  } catch (e) {
-    setStatus(els.adminStatus, e.message, "err");
-  }
+  } catch (e) { setStatus(els.adminStatus, e.message, "err"); }
 }
 
 els.personSelect.addEventListener("change", renderUserForm);
