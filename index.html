@@ -133,12 +133,6 @@ const baseHeaders = {
   "apikey": SUPABASE_ANON_KEY
 };
 
-function authHeaders() {
-  const h = { ...baseHeaders };
-  if (adminToken) h["Authorization"] = "Bearer " + adminToken;
-  return h;
-}
-
 const els = {
   itemsDisplay: document.getElementById("itemsDisplay"),
   personSelect: document.getElementById("personSelect"),
@@ -185,11 +179,24 @@ async function publicGet(action="bootstrap") {
   return data;
 }
 
-async function post(action, payload={}, useAdmin=false) {
+async function post(action, payload={}) {
+  const body = { action, ...payload };
+  if (adminToken) body.adminToken = adminToken;
+
   const res = await fetch(API_URL, {
     method: "POST",
-    headers: useAdmin ? authHeaders() : baseHeaders,
-    body: JSON.stringify({ action, ...payload })
+    headers: baseHeaders,
+    body: JSON.stringify(body)
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
+  return data;
+}
+
+async function getAdminDashboard() {
+  const res = await fetch(API_URL + "?action=admin_dashboard&adminToken=" + encodeURIComponent(adminToken), {
+    method: "GET",
+    headers: baseHeaders
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
@@ -225,9 +232,9 @@ function renderList() {
 }
 
 function renderUserForm() {
-  const currentName = els.personSelect.value || (state.people[0]?.id || "");
+  const currentId = els.personSelect.value || (state.people[0]?.id || "");
   els.personSelect.innerHTML = state.people.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("");
-  if (currentName) els.personSelect.value = currentName;
+  if (currentId) els.personSelect.value = currentId;
 
   const selectedOption = els.personSelect.selectedOptions[0];
   const personName = selectedOption ? selectedOption.textContent : "";
@@ -318,7 +325,7 @@ async function loginAdmin() {
     setStatus(els.adminStatus, "Connexion...");
     const data = await post("admin_login", { pin: els.adminCode.value.trim() });
     adminToken = data.token;
-    const dash = await publicGetAdmin();
+    const dash = await getAdminDashboard();
     state = { ...state, ...dash };
     els.adminContent.style.display = "block";
     renderList();
@@ -330,18 +337,8 @@ async function loginAdmin() {
   }
 }
 
-async function publicGetAdmin() {
-  const res = await fetch(API_URL + "?action=admin_dashboard", {
-    method: "GET",
-    headers: authHeaders()
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
-  return data;
-}
-
 async function refreshAdmin() {
-  const dash = await publicGetAdmin();
+  const dash = await getAdminDashboard();
   state = { ...state, ...dash };
   renderList();
   renderUserForm();
@@ -350,7 +347,7 @@ async function refreshAdmin() {
 
 async function addPerson() {
   try {
-    await post("admin_create_person", { name: els.newPersonInput.value.trim() }, true);
+    await post("admin_create_person", { name: els.newPersonInput.value.trim() });
     els.newPersonInput.value = "";
     await refreshAdmin();
     setStatus(els.adminStatus, "Personne ajoutée.", "ok");
@@ -361,7 +358,7 @@ async function addPerson() {
 
 async function addItem() {
   try {
-    await post("admin_create_item", { name: els.newItemInput.value.trim() }, true);
+    await post("admin_create_item", { name: els.newItemInput.value.trim() });
     els.newItemInput.value = "";
     await refreshAdmin();
     setStatus(els.adminStatus, "Objet ajouté.", "ok");
@@ -372,7 +369,7 @@ async function addItem() {
 
 async function renamePerson(id, name) {
   try {
-    await post("admin_rename_person", { id, name }, true);
+    await post("admin_rename_person", { id, name });
     await refreshAdmin();
     setStatus(els.adminStatus, "Personne modifiée.", "ok");
   } catch (e) {
@@ -382,7 +379,7 @@ async function renamePerson(id, name) {
 
 async function renameItem(id, name) {
   try {
-    await post("admin_rename_item", { id, name }, true);
+    await post("admin_rename_item", { id, name });
     await refreshAdmin();
     setStatus(els.adminStatus, "Objet modifié.", "ok");
   } catch (e) {
@@ -392,7 +389,7 @@ async function renameItem(id, name) {
 
 async function deletePerson(id) {
   try {
-    await post("admin_delete_person", { id }, true);
+    await post("admin_delete_person", { id });
     await refreshAdmin();
     setStatus(els.adminStatus, "Personne supprimée.", "ok");
   } catch (e) {
@@ -402,7 +399,7 @@ async function deletePerson(id) {
 
 async function deleteItem(id) {
   try {
-    await post("admin_delete_item", { id }, true);
+    await post("admin_delete_item", { id });
     await refreshAdmin();
     setStatus(els.adminStatus, "Objet supprimé.", "ok");
   } catch (e) {
