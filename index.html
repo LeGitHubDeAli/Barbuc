@@ -684,7 +684,8 @@
 
   <script>
     const CONFIG = {
-      apiBaseUrl: 'https://davzwcyrmgnozwytuerl.supabase.co/functions/v1/bbq-api'
+      apiBaseUrl: 'https://davzwcyrmgnozwytuerl.supabase.co/functions/v1/bbq-api',
+      supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnp3Y3lybWdub3p3eXR1ZXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzMzNTksImV4cCI6MjA5MDgwOTM1OX0.G2u26YOMbCBR2G26QwcQmI8p48G5eSO6dFvoaXpLupI'
     };
 
     const appState = {
@@ -725,12 +726,17 @@
       if (!CONFIG.apiBaseUrl || CONFIG.apiBaseUrl.includes('PASTE_YOUR')) {
         throw new Error('Tu dois d’abord coller ton URL de fonction Supabase dans CONFIG.apiBaseUrl.');
       }
+      if (!CONFIG.supabaseAnonKey || CONFIG.supabaseAnonKey.includes('PASTE_YOUR')) {
+        throw new Error('Tu dois aussi coller ta clé anon Supabase dans CONFIG.supabaseAnonKey.');
+      }
       const url = CONFIG.apiBaseUrl + path;
+      const authToken = appState.adminToken || CONFIG.supabaseAnonKey;
       const headers = {
         'Content-Type': 'application/json',
+        'apikey': CONFIG.supabaseAnonKey,
+        'Authorization': 'Bearer ' + authToken,
         ...(options.headers || {})
       };
-      if (appState.adminToken) headers['Authorization'] = 'Bearer ' + appState.adminToken;
       const res = await fetch(url, { ...options, headers });
       const text = await res.text();
       let data;
