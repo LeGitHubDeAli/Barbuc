@@ -6,186 +6,44 @@
   <title>BBQ des frères 🔥</title>
   <style>
     :root{
-      --bg:#111111;
-      --panel:#1b1b1b;
-      --panel-2:#232323;
-      --text:#f5f0e8;
-      --muted:#b8b1a7;
-      --fire:#ff5a1f;
-      --ember:#ff9a1f;
-      --danger:#ff4d4f;
-      --ok:#36c96d;
-      --line:#333333;
+      --panel:#1b1b1b;--panel2:#232323;--text:#f5f0e8;--muted:#b8b1a7;
+      --fire:#ff5a1f;--ember:#ff9a1f;--danger:#ff4d4f;--ok:#36c96d;--line:#333
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:Arial,Helvetica,sans-serif;
-      background:linear-gradient(180deg,#130b08 0%, #111111 30%, #111111 100%);
-      color:var(--text);
-      min-height:100vh;
-    }
+    body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#130b08 0%,#111 30%,#111 100%);color:var(--text);min-height:100vh}
     .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    .hero{
-      min-height:42vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:40px 20px;
-    }
-    h1{
-      font-size:clamp(42px,8vw,92px);
-      line-height:.95;
-      color:var(--ember);
-      margin-bottom:12px;
-    }
+    .hero{min-height:38vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
+    h1{font-size:clamp(42px,8vw,92px);line-height:.95;color:var(--ember);margin-bottom:12px}
     .sub{color:var(--muted);font-size:15px}
-    .grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:24px;
-      margin-top:10px;
-    }
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:20px;
-      box-shadow:0 10px 30px rgba(0,0,0,.18);
-    }
-    .card h2{
-      font-size:28px;
-      margin-bottom:6px;
-      color:var(--ember);
-    }
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;margin-top:10px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+    .card h2{font-size:28px;margin-bottom:6px;color:var(--ember)}
     .small{color:var(--muted);font-size:14px;margin-bottom:18px}
-    .list{display:flex;flex-direction:column;gap:10px}
-    .row{
-      display:flex;
-      gap:10px;
-      justify-content:space-between;
-      align-items:center;
-      background:var(--panel-2);
-      border:1px solid #2d2d2d;
-      border-radius:12px;
-      padding:12px 14px;
-    }
-    .item-name{font-weight:700}
+    .list,.checks,.admin-list{display:flex;flex-direction:column;gap:10px}
+    .row,.check,.admin-item{display:flex;gap:10px;align-items:center;background:var(--panel2);border:1px solid #2d2d2d;border-radius:12px;padding:12px 14px}
+    .row{justify-content:space-between}
+    .item-name,.check-title{font-weight:700}
     .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .badge{
-      background:rgba(255,90,31,.12);
-      color:#ffb183;
-      border:1px solid rgba(255,90,31,.28);
-      padding:5px 9px;
-      border-radius:999px;
-      font-size:12px;
-    }
+    .badge{background:rgba(255,90,31,.12);color:#ffb183;border:1px solid rgba(255,90,31,.28);padding:5px 9px;border-radius:999px;font-size:12px}
     .none{color:#8e8a82;font-style:italic;font-size:13px}
-    label{
-      display:block;
-      margin:14px 0 6px;
-      font-size:14px;
-      color:var(--muted);
-    }
-    select,input,button{
-      width:100%;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:#151515;
-      color:var(--text);
-      padding:12px 14px;
-      font-size:15px;
-    }
-    input:focus,select:focus{
-      outline:none;
-      border-color:var(--fire);
-    }
-    button{
-      cursor:pointer;
-      font-weight:700;
-      background:linear-gradient(135deg,var(--fire),var(--ember));
-      border:none;
-      color:white;
-      margin-top:16px;
-    }
-    button.secondary{
-      background:#1b1b1b;
-      border:1px solid var(--line);
-      color:var(--text);
-    }
-    .checks{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto;padding-right:4px}
-    .check{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      background:var(--panel-2);
-      border:1px solid #2d2d2d;
-      border-radius:12px;
-      padding:11px 12px;
-    }
+    label{display:block;margin:14px 0 6px;font-size:14px;color:var(--muted)}
+    select,input,button{width:100%;border-radius:12px;border:1px solid var(--line);background:#151515;color:var(--text);padding:12px 14px;font-size:15px}
+    button{cursor:pointer;font-weight:700;background:linear-gradient(135deg,var(--fire),var(--ember));border:none;color:white;margin-top:16px}
+    button.secondary{background:#1b1b1b;border:1px solid var(--line);color:var(--text)}
+    .check{align-items:flex-start}
     .check input{width:auto;margin-top:2px}
-    .check-title{font-weight:700}
     .check-meta{font-size:12px;color:var(--muted);margin-top:3px}
-    .admin-toggle{
-      margin-top:18px;
-      text-align:center;
-    }
-    .linkbtn{
-      display:inline-block;
-      color:var(--ember);
-      cursor:pointer;
-      font-size:14px;
-      text-decoration:underline;
-    }
+    .linkbtn{display:inline-block;color:var(--ember);cursor:pointer;font-size:14px;text-decoration:underline;margin-top:18px}
     .admin-panel{display:none;margin-top:22px}
     .admin-panel.show{display:block}
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .admin-list{display:flex;flex-direction:column;gap:8px}
-    .admin-item{
-      display:flex;gap:8px;align-items:center;
-    }
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
     .admin-item input{margin:0}
-    .admin-item .tiny{
-      width:auto;
-      padding:10px 12px;
-      margin:0;
-      white-space:nowrap;
-    }
-    .muted{color:var(--muted)}
-    .status{
-      margin-top:10px;
-      font-size:14px;
-      color:var(--muted);
-      min-height:20px;
-    }
-    .ok{color:var(--ok)}
-    .err{color:var(--danger)}
-    .history{
-      margin-top:18px;
-      max-height:260px;
-      overflow:auto;
-      border:1px solid var(--line);
-      border-radius:12px;
-    }
-    table{width:100%;border-collapse:collapse}
-    th,td{
-      text-align:left;
-      padding:10px 12px;
-      border-bottom:1px solid #2a2a2a;
-      font-size:13px;
-    }
-    th{color:var(--muted);background:#171717;position:sticky;top:0}
-    .footer-note{
-      margin-top:22px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-    @media (max-width: 860px){
-      .grid,.split{grid-template-columns:1fr}
-      .row{flex-direction:column;align-items:flex-start}
-      .badges{justify-content:flex-start}
-    }
+    .tiny{width:auto;padding:10px 12px;margin:0;white-space:nowrap}
+    .status{margin-top:10px;font-size:14px;color:var(--muted);min-height:20px}
+    .ok{color:var(--ok)} .err{color:var(--danger)}
+    .history{margin-top:18px;max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+    table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #2a2a2a;font-size:13px} th{color:var(--muted);background:#171717;position:sticky;top:0}
+    @media (max-width:860px){.grid,.split{grid-template-columns:1fr}.row{flex-direction:column;align-items:flex-start}.badges{justify-content:flex-start}}
   </style>
 </head>
 <body>
@@ -201,7 +59,7 @@
     <div class="grid">
       <section class="card">
         <h2>La liste</h2>
-        <div class="small">Tout le monde voit les mêmes données en direct via Supabase.</div>
+        <div class="small">Données partagées entre tout le monde.</div>
         <div id="itemsDisplay" class="list"></div>
       </section>
 
@@ -218,34 +76,31 @@
         <button id="saveBtn">Enregistrer mes choix</button>
         <div id="userStatus" class="status"></div>
 
-        <div class="admin-toggle">
-          <span class="linkbtn" id="adminToggleBtn">Ouvrir l'administration</span>
-        </div>
+        <div class="linkbtn" id="adminToggleBtn">Ouvrir l'administration</div>
 
         <div id="adminPanel" class="admin-panel">
           <label for="adminCode">Code admin</label>
           <input id="adminCode" type="password" placeholder="Entre le code admin" />
           <button id="adminLoginBtn">Se connecter</button>
+          <div id="adminStatus" class="status"></div>
 
           <div id="adminContent" style="display:none;">
-            <div class="status" id="adminStatus"></div>
-
-            <div class="split" style="margin-top:14px;">
+            <div class="split">
               <div>
                 <h3 style="margin-bottom:10px;color:var(--ember)">Personnes</h3>
                 <div id="adminPeopleList" class="admin-list"></div>
-                <div class="admin-item" style="margin-top:8px;">
+                <div class="admin-item">
                   <input id="newPersonInput" placeholder="Nouveau prénom" />
-                  <button class="tiny" id="addPersonBtn" style="width:auto">Ajouter</button>
+                  <button class="tiny" id="addPersonBtn">Ajouter</button>
                 </div>
               </div>
 
               <div>
                 <h3 style="margin-bottom:10px;color:var(--ember)">Objets</h3>
                 <div id="adminItemsList" class="admin-list"></div>
-                <div class="admin-item" style="margin-top:8px;">
+                <div class="admin-item">
                   <input id="newItemInput" placeholder="Nouvel objet" />
-                  <button class="tiny" id="addItemBtn" style="width:auto">Ajouter</button>
+                  <button class="tiny" id="addItemBtn">Ajouter</button>
                 </div>
               </div>
             </div>
@@ -254,398 +109,338 @@
             <div class="history">
               <table>
                 <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Personne</th>
-                    <th>Action</th>
-                    <th>IP</th>
-                  </tr>
+                  <tr><th>Date</th><th>Personne</th><th>Action</th><th>IP</th></tr>
                 </thead>
                 <tbody id="historyBody"></tbody>
               </table>
             </div>
           </div>
         </div>
-
-        <div class="footer-note">
-          Pense à remplacer seulement ces 2 valeurs dans le script si besoin :
-          <br>1. <span class="muted">API_URL</span>
-          <br>2. <span class="muted">SUPABASE_ANON_KEY</span>
-        </div>
       </section>
     </div>
   </div>
 
-  <script>
-    const API_URL = "https://davzwcyrmgnozwytuerl.supabase.co/functions/v1/bbq-api";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnp3Y3lybWdub3p3eXR1ZXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzMzNTksImV4cCI6MjA5MDgwOTM1OX0.G2u26YOMbCBR2G26QwcQmI8p48G5eSO6dFvoaXpLupI";
+<script>
+const API_URL = "https://davzwcyrmgnozwytuerl.supabase.co/functions/v1/bbq-api";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnp3Y3lybWdub3p3eXR1ZXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzMzNTksImV4cCI6MjA5MDgwOTM1OX0.G2u26YOMbCBR2G26QwcQmI8p48G5eSO6dFvoaXpLupI";
 
-    const headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-      "apikey": SUPABASE_ANON_KEY
-    };
+let state = { people: [], items: [], assignmentsByItemId: {}, history: [] };
+let adminToken = "";
 
-    let state = {
-      people: [],
-      items: [],
-      assignments: [],
-      history: []
-    };
+const baseHeaders = {
+  "Content-Type": "application/json",
+  "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+  "apikey": SUPABASE_ANON_KEY
+};
 
-    let adminToken = "";
-    let adminLogged = false;
+function authHeaders() {
+  const h = { ...baseHeaders };
+  if (adminToken) h["Authorization"] = "Bearer " + adminToken;
+  return h;
+}
 
-    const els = {
-      itemsDisplay: document.getElementById("itemsDisplay"),
-      personSelect: document.getElementById("personSelect"),
-      itemChecklist: document.getElementById("itemChecklist"),
-      saveBtn: document.getElementById("saveBtn"),
-      userStatus: document.getElementById("userStatus"),
-      adminToggleBtn: document.getElementById("adminToggleBtn"),
-      adminPanel: document.getElementById("adminPanel"),
-      adminCode: document.getElementById("adminCode"),
-      adminLoginBtn: document.getElementById("adminLoginBtn"),
-      adminContent: document.getElementById("adminContent"),
-      adminStatus: document.getElementById("adminStatus"),
-      adminPeopleList: document.getElementById("adminPeopleList"),
-      adminItemsList: document.getElementById("adminItemsList"),
-      newPersonInput: document.getElementById("newPersonInput"),
-      newItemInput: document.getElementById("newItemInput"),
-      addPersonBtn: document.getElementById("addPersonBtn"),
-      addItemBtn: document.getElementById("addItemBtn"),
-      historyBody: document.getElementById("historyBody")
-    };
+const els = {
+  itemsDisplay: document.getElementById("itemsDisplay"),
+  personSelect: document.getElementById("personSelect"),
+  itemChecklist: document.getElementById("itemChecklist"),
+  saveBtn: document.getElementById("saveBtn"),
+  userStatus: document.getElementById("userStatus"),
+  adminToggleBtn: document.getElementById("adminToggleBtn"),
+  adminPanel: document.getElementById("adminPanel"),
+  adminCode: document.getElementById("adminCode"),
+  adminLoginBtn: document.getElementById("adminLoginBtn"),
+  adminStatus: document.getElementById("adminStatus"),
+  adminContent: document.getElementById("adminContent"),
+  adminPeopleList: document.getElementById("adminPeopleList"),
+  adminItemsList: document.getElementById("adminItemsList"),
+  newPersonInput: document.getElementById("newPersonInput"),
+  newItemInput: document.getElementById("newItemInput"),
+  addPersonBtn: document.getElementById("addPersonBtn"),
+  addItemBtn: document.getElementById("addItemBtn"),
+  historyBody: document.getElementById("historyBody")
+};
 
-    function setStatus(el, message, type="") {
-      el.className = "status " + type;
-      el.textContent = message || "";
-    }
+function setStatus(el, message, type="") {
+  el.className = "status " + type;
+  el.textContent = message || "";
+}
 
-    async function api(action, payload = {}) {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ action, adminToken, ...payload })
-      });
+function esc(str) {
+  return String(str ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
 
-      const data = await res.json().catch(() => ({}));
+function formatDate(value) {
+  if (!value) return "";
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? value : d.toLocaleString("fr-FR");
+}
 
-      if (!res.ok) {
-        throw new Error(data.error || data.message || ("Erreur API " + res.status));
-      }
+async function publicGet(action="bootstrap") {
+  const res = await fetch(API_URL + "?action=" + encodeURIComponent(action), {
+    method: "GET",
+    headers: baseHeaders
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
+  return data;
+}
 
-      return data;
-    }
+async function post(action, payload={}, useAdmin=false) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: useAdmin ? authHeaders() : baseHeaders,
+    body: JSON.stringify({ action, ...payload })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
+  return data;
+}
 
-    function assignmentNamesForItem(itemId) {
-      const rows = state.assignments.filter(a => Number(a.item_id) === Number(itemId));
-      return rows.map(r => {
-        const p = state.people.find(x => Number(x.id) === Number(r.person_id));
-        return p ? p.name : "";
-      }).filter(Boolean);
-    }
+function namesForItem(itemId) {
+  return state.assignmentsByItemId[String(itemId)] || [];
+}
 
-    function personAssignedItemIds(personId) {
-      return new Set(
-        state.assignments
-          .filter(a => Number(a.person_id) === Number(personId))
-          .map(a => Number(a.item_id))
-      );
-    }
+function checkedItemIdsForPerson(personName) {
+  const ids = [];
+  state.items.forEach(item => {
+    if (namesForItem(item.id).includes(personName)) ids.push(String(item.id));
+  });
+  return new Set(ids);
+}
 
-    function renderList() {
-      els.itemsDisplay.innerHTML = "";
-      state.items.forEach(item => {
-        const people = assignmentNamesForItem(item.id);
-        const row = document.createElement("div");
-        row.className = "row";
-        row.innerHTML = `
-          <div class="item-name">${escapeHtml(item.name)}</div>
-          <div class="badges">
-            ${
-              people.length
-                ? people.map(name => `<span class="badge">${escapeHtml(name)}</span>`).join("")
-                : `<span class="none">Non assigné</span>`
-            }
-          </div>
-        `;
-        els.itemsDisplay.appendChild(row);
-      });
-    }
+function renderList() {
+  els.itemsDisplay.innerHTML = "";
+  state.items.forEach(item => {
+    const names = namesForItem(item.id);
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <div class="item-name">${esc(item.name)}</div>
+      <div class="badges">
+        ${names.length ? names.map(n => `<span class="badge">${esc(n)}</span>`).join("") : `<span class="none">Non assigné</span>`}
+      </div>
+    `;
+    els.itemsDisplay.appendChild(row);
+  });
+}
 
-    function renderUserForm() {
-      const current = Number(els.personSelect.value) || (state.people[0] ? Number(state.people[0].id) : 0);
+function renderUserForm() {
+  const currentName = els.personSelect.value || (state.people[0]?.id || "");
+  els.personSelect.innerHTML = state.people.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("");
+  if (currentName) els.personSelect.value = currentName;
 
-      els.personSelect.innerHTML = state.people
-        .map(p => `<option value="${p.id}" ${Number(p.id)===current ? "selected" : ""}>${escapeHtml(p.name)}</option>`)
-        .join("");
+  const selectedOption = els.personSelect.selectedOptions[0];
+  const personName = selectedOption ? selectedOption.textContent : "";
+  const checkedIds = checkedItemIdsForPerson(personName);
 
-      const assigned = personAssignedItemIds(current);
+  els.itemChecklist.innerHTML = "";
+  state.items.forEach(item => {
+    const names = namesForItem(item.id);
+    const label = document.createElement("label");
+    label.className = "check";
+    label.innerHTML = `
+      <input type="checkbox" data-item-id="${esc(item.id)}" ${checkedIds.has(String(item.id)) ? "checked" : ""}>
+      <div>
+        <div class="check-title">${esc(item.name)}</div>
+        <div class="check-meta">${names.length ? "Déjà pris par : " + esc(names.join(", ")) : "Personne pour l'instant"}</div>
+      </div>
+    `;
+    els.itemChecklist.appendChild(label);
+  });
+}
 
-      els.itemChecklist.innerHTML = "";
-      state.items.forEach(item => {
-        const assignedNames = assignmentNamesForItem(item.id);
-        const checked = assigned.has(Number(item.id));
-        const box = document.createElement("label");
-        box.className = "check";
-        box.innerHTML = `
-          <input type="checkbox" data-item-id="${item.id}" ${checked ? "checked" : ""}>
-          <div>
-            <div class="check-title">${escapeHtml(item.name)}</div>
-            <div class="check-meta">${assignedNames.length ? "Déjà pris par : " + escapeHtml(assignedNames.join(", ")) : "Personne pour l'instant"}</div>
-          </div>
-        `;
-        els.itemChecklist.appendChild(box);
-      });
-    }
+function renderAdmin() {
+  els.adminPeopleList.innerHTML = "";
+  state.people.forEach(p => {
+    const row = document.createElement("div");
+    row.className = "admin-item";
+    row.innerHTML = `
+      <input value="${esc(p.name)}" data-id="${esc(p.id)}" class="person-edit">
+      <button class="tiny secondary save-person" data-id="${esc(p.id)}">Modifier</button>
+      <button class="tiny" style="background:#6b1a1a" data-del-person="${esc(p.id)}">Supprimer</button>
+    `;
+    els.adminPeopleList.appendChild(row);
+  });
 
-    function renderAdmin() {
-      if (!adminLogged) return;
+  els.adminItemsList.innerHTML = "";
+  state.items.forEach(i => {
+    const row = document.createElement("div");
+    row.className = "admin-item";
+    row.innerHTML = `
+      <input value="${esc(i.name)}" data-id="${esc(i.id)}" class="item-edit">
+      <button class="tiny secondary save-item" data-id="${esc(i.id)}">Modifier</button>
+      <button class="tiny" style="background:#6b1a1a" data-del-item="${esc(i.id)}">Supprimer</button>
+    `;
+    els.adminItemsList.appendChild(row);
+  });
 
-      els.adminPeopleList.innerHTML = "";
-      state.people.forEach(p => {
-        const row = document.createElement("div");
-        row.className = "admin-item";
-        row.innerHTML = `
-          <input value="${escapeAttr(p.name)}" data-id="${p.id}" class="person-edit">
-          <button class="tiny secondary save-person" data-id="${p.id}">Modifier</button>
-          <button class="tiny" style="background:#6b1a1a" data-del-person="${p.id}">Supprimer</button>
-        `;
-        els.adminPeopleList.appendChild(row);
-      });
+  els.historyBody.innerHTML = "";
+  (state.history || []).forEach(h => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${esc(formatDate(h.created_at))}</td>
+      <td>${esc(h.person_name || "")}</td>
+      <td>${esc(h.action_text || h.action || "")}</td>
+      <td>${esc(h.client_ip || h.ip || "")}</td>
+    `;
+    els.historyBody.appendChild(tr);
+  });
+}
 
-      els.adminItemsList.innerHTML = "";
-      state.items.forEach(i => {
-        const row = document.createElement("div");
-        row.className = "admin-item";
-        row.innerHTML = `
-          <input value="${escapeAttr(i.name)}" data-id="${i.id}" class="item-edit">
-          <button class="tiny secondary save-item" data-id="${i.id}">Modifier</button>
-          <button class="tiny" style="background:#6b1a1a" data-del-item="${i.id}">Supprimer</button>
-        `;
-        els.adminItemsList.appendChild(row);
-      });
+async function loadData() {
+  setStatus(els.userStatus, "Chargement...");
+  try {
+    const data = await publicGet("bootstrap");
+    state = { ...state, ...data };
+    renderList();
+    renderUserForm();
+    setStatus(els.userStatus, "");
+  } catch (e) {
+    setStatus(els.userStatus, e.message, "err");
+  }
+}
 
-      els.historyBody.innerHTML = "";
-      (state.history || []).forEach(h => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${escapeHtml(formatDate(h.created_at || h.time || ""))}</td>
-          <td>${escapeHtml(h.person_name || h.person || "")}</td>
-          <td>${escapeHtml(h.action || "")}</td>
-          <td>${escapeHtml(h.ip || "")}</td>
-        `;
-        els.historyBody.appendChild(tr);
-      });
-    }
+async function saveMyChoices() {
+  const personId = els.personSelect.value;
+  const checked = [...els.itemChecklist.querySelectorAll('input[type="checkbox"]:checked')].map(x => x.dataset.itemId);
+  try {
+    setStatus(els.userStatus, "Enregistrement...");
+    await post("save_selection", { personId, itemIds: checked });
+    await loadData();
+    setStatus(els.userStatus, "C'est enregistré.", "ok");
+  } catch (e) {
+    setStatus(els.userStatus, e.message, "err");
+  }
+}
 
-    async function loadData() {
-      setStatus(els.userStatus, "Chargement...");
-      try {
-        const data = await api("get_data");
-        state.people = data.people || [];
-        state.items = data.items || [];
-        state.assignments = data.assignments || [];
-        state.history = data.history || [];
-        renderList();
-        renderUserForm();
-        renderAdmin();
-        setStatus(els.userStatus, "");
-      } catch (e) {
-        setStatus(els.userStatus, e.message, "err");
-      }
-    }
+async function loginAdmin() {
+  try {
+    setStatus(els.adminStatus, "Connexion...");
+    const data = await post("admin_login", { pin: els.adminCode.value.trim() });
+    adminToken = data.token;
+    const dash = await publicGetAdmin();
+    state = { ...state, ...dash };
+    els.adminContent.style.display = "block";
+    renderList();
+    renderUserForm();
+    renderAdmin();
+    setStatus(els.adminStatus, "Connecté.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function saveMyChoices() {
-      const personId = Number(els.personSelect.value);
-      if (!personId) {
-        setStatus(els.userStatus, "Choisis ton prénom.", "err");
-        return;
-      }
+async function publicGetAdmin() {
+  const res = await fetch(API_URL + "?action=admin_dashboard", {
+    method: "GET",
+    headers: authHeaders()
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ("Erreur API " + res.status));
+  return data;
+}
 
-      const itemIds = [...els.itemChecklist.querySelectorAll('input[type="checkbox"]:checked')]
-        .map(i => Number(i.dataset.itemId));
+async function refreshAdmin() {
+  const dash = await publicGetAdmin();
+  state = { ...state, ...dash };
+  renderList();
+  renderUserForm();
+  renderAdmin();
+}
 
-      setStatus(els.userStatus, "Enregistrement...");
-      try {
-        await api("update_assignments", { personId, itemIds });
-        setStatus(els.userStatus, "C'est enregistré.", "ok");
-        await loadData();
-      } catch (e) {
-        setStatus(els.userStatus, e.message, "err");
-      }
-    }
+async function addPerson() {
+  try {
+    await post("admin_create_person", { name: els.newPersonInput.value.trim() }, true);
+    els.newPersonInput.value = "";
+    await refreshAdmin();
+    setStatus(els.adminStatus, "Personne ajoutée.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function loginAdmin() {
-      adminToken = els.adminCode.value.trim();
-      if (!adminToken) {
-        setStatus(els.adminStatus, "Entre le code admin.", "err");
-        return;
-      }
-      setStatus(els.adminStatus, "Connexion admin...");
-      try {
-        const data = await api("admin_dashboard");
-        adminLogged = true;
-        state.people = data.people || state.people;
-        state.items = data.items || state.items;
-        state.assignments = data.assignments || state.assignments;
-        state.history = data.history || state.history;
-        els.adminContent.style.display = "block";
-        renderList();
-        renderUserForm();
-        renderAdmin();
-        setStatus(els.adminStatus, "Connecté.", "ok");
-      } catch (e) {
-        adminLogged = false;
-        els.adminContent.style.display = "none";
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
+async function addItem() {
+  try {
+    await post("admin_create_item", { name: els.newItemInput.value.trim() }, true);
+    els.newItemInput.value = "";
+    await refreshAdmin();
+    setStatus(els.adminStatus, "Objet ajouté.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function addPerson() {
-      const name = els.newPersonInput.value.trim();
-      if (!name) return;
-      try {
-        await api("admin_add_person", { name });
-        els.newPersonInput.value = "";
-        setStatus(els.adminStatus, "Personne ajoutée.", "ok");
-        await refreshAdmin();
-      } catch (e) {
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
+async function renamePerson(id, name) {
+  try {
+    await post("admin_rename_person", { id, name }, true);
+    await refreshAdmin();
+    setStatus(els.adminStatus, "Personne modifiée.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function addItem() {
-      const name = els.newItemInput.value.trim();
-      if (!name) return;
-      try {
-        await api("admin_add_item", { name });
-        els.newItemInput.value = "";
-        setStatus(els.adminStatus, "Objet ajouté.", "ok");
-        await refreshAdmin();
-      } catch (e) {
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
+async function renameItem(id, name) {
+  try {
+    await post("admin_rename_item", { id, name }, true);
+    await refreshAdmin();
+    setStatus(els.adminStatus, "Objet modifié.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function refreshAdmin() {
-      const data = await api("admin_dashboard");
-      state.people = data.people || [];
-      state.items = data.items || [];
-      state.assignments = data.assignments || [];
-      state.history = data.history || [];
-      renderList();
-      renderUserForm();
-      renderAdmin();
-    }
+async function deletePerson(id) {
+  try {
+    await post("admin_delete_person", { id }, true);
+    await refreshAdmin();
+    setStatus(els.adminStatus, "Personne supprimée.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function renamePerson(id, name) {
-      try {
-        await api("admin_rename_person", { id: Number(id), name });
-        setStatus(els.adminStatus, "Personne modifiée.", "ok");
-        await refreshAdmin();
-      } catch (e) {
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
+async function deleteItem(id) {
+  try {
+    await post("admin_delete_item", { id }, true);
+    await refreshAdmin();
+    setStatus(els.adminStatus, "Objet supprimé.", "ok");
+  } catch (e) {
+    setStatus(els.adminStatus, e.message, "err");
+  }
+}
 
-    async function renameItem(id, name) {
-      try {
-        await api("admin_rename_item", { id: Number(id), name });
-        setStatus(els.adminStatus, "Objet modifié.", "ok");
-        await refreshAdmin();
-      } catch (e) {
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
+els.personSelect.addEventListener("change", renderUserForm);
+els.saveBtn.addEventListener("click", saveMyChoices);
+els.adminToggleBtn.addEventListener("click", () => els.adminPanel.classList.toggle("show"));
+els.adminLoginBtn.addEventListener("click", loginAdmin);
+els.addPersonBtn.addEventListener("click", addPerson);
+els.addItemBtn.addEventListener("click", addItem);
+els.newPersonInput.addEventListener("keydown", e => { if (e.key === "Enter") addPerson(); });
+els.newItemInput.addEventListener("keydown", e => { if (e.key === "Enter") addItem(); });
 
-    async function deletePerson(id) {
-      try {
-        await api("admin_delete_person", { id: Number(id) });
-        setStatus(els.adminStatus, "Personne supprimée.", "ok");
-        await refreshAdmin();
-      } catch (e) {
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
+document.addEventListener("click", async (e) => {
+  const sp = e.target.closest(".save-person");
+  if (sp) {
+    const id = sp.dataset.id;
+    const input = document.querySelector('.person-edit[data-id="' + id + '"]');
+    if (input) await renamePerson(id, input.value.trim());
+    return;
+  }
+  const si = e.target.closest(".save-item");
+  if (si) {
+    const id = si.dataset.id;
+    const input = document.querySelector('.item-edit[data-id="' + id + '"]');
+    if (input) await renameItem(id, input.value.trim());
+    return;
+  }
+  const dp = e.target.closest("[data-del-person]");
+  if (dp) return deletePerson(dp.dataset.delPerson);
+  const di = e.target.closest("[data-del-item]");
+  if (di) return deleteItem(di.dataset.delItem);
+});
 
-    async function deleteItem(id) {
-      try {
-        await api("admin_delete_item", { id: Number(id) });
-        setStatus(els.adminStatus, "Objet supprimé.", "ok");
-        await refreshAdmin();
-      } catch (e) {
-        setStatus(els.adminStatus, e.message, "err");
-      }
-    }
-
-    function escapeHtml(str) {
-      return String(str ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function escapeAttr(str) {
-      return escapeHtml(str);
-    }
-
-    function formatDate(value) {
-      if (!value) return "";
-      const d = new Date(value);
-      if (Number.isNaN(d.getTime())) return value;
-      return d.toLocaleString("fr-FR");
-    }
-
-    els.personSelect.addEventListener("change", renderUserForm);
-    els.saveBtn.addEventListener("click", saveMyChoices);
-    els.adminToggleBtn.addEventListener("click", () => {
-      els.adminPanel.classList.toggle("show");
-    });
-    els.adminLoginBtn.addEventListener("click", loginAdmin);
-    els.addPersonBtn.addEventListener("click", addPerson);
-    els.addItemBtn.addEventListener("click", addItem);
-
-    els.newPersonInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") addPerson();
-    });
-    els.newItemInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") addItem();
-    });
-
-    document.addEventListener("click", async (e) => {
-      const savePersonBtn = e.target.closest(".save-person");
-      if (savePersonBtn) {
-        const id = savePersonBtn.dataset.id;
-        const input = document.querySelector(`.person-edit[data-id="${id}"]`);
-        if (input) await renamePerson(id, input.value.trim());
-        return;
-      }
-
-      const saveItemBtn = e.target.closest(".save-item");
-      if (saveItemBtn) {
-        const id = saveItemBtn.dataset.id;
-        const input = document.querySelector(`.item-edit[data-id="${id}"]`);
-        if (input) await renameItem(id, input.value.trim());
-        return;
-      }
-
-      const delPersonBtn = e.target.closest("[data-del-person]");
-      if (delPersonBtn) {
-        await deletePerson(delPersonBtn.dataset.delPerson);
-        return;
-      }
-
-      const delItemBtn = e.target.closest("[data-del-item]");
-      if (delItemBtn) {
-        await deleteItem(delItemBtn.dataset.delItem);
-      }
-    });
-
-    loadData();
-  </script>
+loadData();
+</script>
 </body>
 </html>
